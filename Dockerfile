@@ -3,7 +3,7 @@ FROM ubuntu:17.04
 RUN apt-get -y update && \
      apt-get -y install sudo pkg-config git build-essential \
      software-properties-common aspcud unzip curl wget && \     
-     apt-get install -y gcc g++ flex autoconf automake libtool cmake
+     apt-get install -y gcc g++ flex autoconf automake libtool cmake emacs
           
 
 RUN useradd -ms /bin/bash ymir && echo "ymir:ymir" | chpasswd && adduser ymir sudo
@@ -57,8 +57,12 @@ RUN ../gcc-src/configure --prefix=$(pwd)/../gcc-install --enable-languages=c,ymi
 RUN make
 RUN make install
 
+WORKDIR /tmp/
+RUN git clone --depth=1 https://github.com/GNU-Ymir/Ymir-Docker.git ymirDocker
+RUN cp /tmp/ymirDocker/.emacs /home/ymir/.emacs
+RUN cp /tmp/ymirDocker/yr-mode.el /home/ymir/.elips/yr-mode.el
 
-
+USER ymir
 WORKDIR  /home/ymir
 
 # overwrite this with 'CMD []' in a dependent Dockerfile
