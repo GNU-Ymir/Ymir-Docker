@@ -60,6 +60,7 @@ RUN make install
 WORKDIR /tmp/
 RUN git clone --depth=1 https://github.com/GNU-Ymir/Ymir-Docker.git ymirDocker
 RUN cp /tmp/ymirDocker/.emacs /home/ymir/.emacs
+RUN mkdir /home/ymir/.elips/
 RUN cp /tmp/ymirDocker/yr-mode.el /home/ymir/.elips/yr-mode.el
 
 USER ymir
