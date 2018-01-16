@@ -1,0 +1,75 @@
+extern (C) printf (const str : p!char, ...);
+extern (C) putchar (c : char);
+
+def print (s : const string) {
+    let i = 0;
+    while i < s.len {
+        putchar (s [i]);
+        i = i + 1;
+    }
+}
+
+def print (a : int) {
+    printf ("%d".ptr, a);
+}
+
+def print (a : char) {
+    putchar (a);
+}
+
+def print (a : float) {
+    printf ("%.*lf".ptr, 2, a);
+}
+
+def print (a : double) {
+    printf ("%.*lf".ptr, 2, a);
+}
+
+def println (T) (elem : const T) {
+    print (elem);
+    putchar ('\n');
+}
+
+def print (T) (a : t!(T)) {
+    print ("(");
+    print (a.0);
+    print (')');
+}
+
+def print (T, T1) (a : t!(T, T1)) {
+    print ("(");
+    print (a.0);
+    print (", ");
+    print (a.1);
+    print (')');
+}
+
+def print (const T, const T1, const T2) (a : t!(T, T1, T2)) {
+    print ("(");
+    print (a.0);
+    print (", ");
+    print (a.1);
+    print (", ");
+    print (a.2);
+    print (')');
+}
+
+def print (T of [U], const U) (a : const T) {
+    let i = 0;
+    putchar ('[');
+    while i < a.len { // oui pas encore les for ...
+        print (a [i]);
+        if i < a.len - 1U
+            print (", ");
+        i = i + 1;
+    }
+    putchar (']');
+}
+
+def main () {
+    println ([1, 2, 3] ~ [4]);
+    println ([1., 2., 3.] ~ [4., 5., 7.]);
+    println ("[salut" ~ " heh]");
+    println (["1", "2", "3"]);
+    println ((1, "salut", 4.5));
+}
