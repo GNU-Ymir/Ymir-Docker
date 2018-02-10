@@ -361,13 +361,17 @@ buffer."
                        (back-to-indentation)
                        (current-column))))))
 
-              ;; A function return type is indented to the corresponding function arguments
-              ((looking-at "->")
-               (save-excursion
-                 (backward-list)
-                 (or (yr-align-to-expr-after-brace)
-                     (+ baseline yr-indent-offset))))
+              ;; ;; A function return type is indented to the corresponding function arguments
+              ;; ((looking-at "->")
+              ;;  (save-excursion
+              ;;    (backward-list)
+              ;;    (or (yr-align-to-expr-after-brace)
+              ;;        (+ baseline yr-indent-offset))))
 
+              ((looking-at "->") (- 1 baseline ))
+	      
+              ((looking-at "[]|)]") (- baseline))
+	      
               ;; A closing brace is 1 level unindented
               ((looking-at "[]})]") (- baseline yr-indent-offset))
 
