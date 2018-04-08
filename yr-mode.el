@@ -496,7 +496,7 @@ buffer."
     "def" "for" "is"
     "if" "impl" "in" "over"
     "let" "loop"
-    "match" "imut"
+    "match" "cte"
     "private" "public"
     "ref" "return" "fn"
     "self" "static" "struct" "super"
@@ -758,8 +758,8 @@ the desired identifiers), but does not match type annotations \"foo::<\"."
                  (looking-back "[^:]:" (- (point) 2))
                  (not (save-excursion (and (yr-rewind-to-decl-name) (progn (yr-rewind-irrelevant) (yr-looking-back-symbols '("type"))))))))
 
-           ;; "let ident =" introduces an expression--and so does "const" and "imut"
-           ((and (equal postchar ?=) (yr-looking-back-symbols '("let" "const" "imut"))) t)
+           ;; "let ident =" introduces an expression--and so does "const" and "cte"
+           ((and (equal postchar ?=) (yr-looking-back-symbols '("let" "const" "cte"))) t)
 
            ;; As a specific special case, see if this is the = in this situation:
            ;;     enum EnumName<type params> { Ident =
