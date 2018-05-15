@@ -361,13 +361,17 @@ buffer."
                        (back-to-indentation)
                        (current-column))))))
 
-              ;; A function return type is indented to the corresponding function arguments
-              ((looking-at "->")
-               (save-excursion
-                 (backward-list)
-                 (or (yr-align-to-expr-after-brace)
-                     (+ baseline yr-indent-offset))))
+              ;; ;; A function return type is indented to the corresponding function arguments
+              ;; ((looking-at "->")
+              ;;  (save-excursion
+              ;;    (backward-list)
+              ;;    (or (yr-align-to-expr-after-brace)
+              ;;        (+ baseline yr-indent-offset))))
 
+              ((looking-at "->") (- 1 baseline ))
+	      
+              ((looking-at "[]|)]") (- baseline))
+	      
               ;; A closing brace is 1 level unindented
               ((looking-at "[]})]") (- baseline yr-indent-offset))
 
@@ -492,7 +496,7 @@ buffer."
     "def" "for" "is"
     "if" "impl" "in" "over"
     "let" "loop"
-    "match" "imut"
+    "match" "cte"
     "private" "public"
     "ref" "return" "fn"
     "self" "static" "struct" "super"
@@ -754,8 +758,8 @@ the desired identifiers), but does not match type annotations \"foo::<\"."
                  (looking-back "[^:]:" (- (point) 2))
                  (not (save-excursion (and (yr-rewind-to-decl-name) (progn (yr-rewind-irrelevant) (yr-looking-back-symbols '("type"))))))))
 
-           ;; "let ident =" introduces an expression--and so does "const" and "imut"
-           ((and (equal postchar ?=) (yr-looking-back-symbols '("let" "const" "imut"))) t)
+           ;; "let ident =" introduces an expression--and so does "const" and "cte"
+           ((and (equal postchar ?=) (yr-looking-back-symbols '("let" "const" "cte"))) t)
 
            ;; As a specific special case, see if this is the = in this situation:
            ;;     enum EnumName<type params> { Ident =
