@@ -24,7 +24,7 @@ The file name suffix determines what kind of compilation is done. The following 
 .IX Item "file.yr"
 Ymir source files.
 .PP
-You can specify more than one input file on the \fBgyc\fR command line, in which case they will all be compiled. If you specify a \&\f(CW\*(C`\-o \f(CIfile\f(CW\*(C`\fR option, all the input fils will be compiled together, producing a single output file, name \fIfile\fR.
+You can specify more than one input file on the \fBgyc\fR command line, in which case they will all be compiled. If you specify a \&\f(CW\*(C`\-o \f(CIfile\f(CW\*(C`\fR option, all the input files will be compiled together, producing a single output file, names \fIfile\fR.
 .SS "Options for Directory Search"
 .IX Subsection "Options for Directory Search"
 
