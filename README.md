@@ -23,7 +23,8 @@ cd builder_image/{version}/{arch}
 
 This could take a while (several hours for config.sh)
 
-If everything worked as expected, the two files : gyc-{version}_{sub_version}_{arch}.deb and libgmidgard_{version}_{arch}.deb should be available in the directory :
+If everything worked as expected, the two files : gyc-{version}\_{sub_version}\_{arch}.deb and libgymidgard\_{version}\_{arch}.deb should be available in the directory :
+
 - builder_image/{version}/bin/
 
 **INFO** The compilation is based on docker images, that are cached.
