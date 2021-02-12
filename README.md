@@ -22,7 +22,7 @@ cd builder_image/{version}/
 
 This could take a while
 
-If everything worked as expected, the two files : gyc-{version}_{sub_version}_amd64.deb and libgymidgard_{version}.deb should be available in the directory :
+If everything worked as expected, the two files : gyc-{version}\_{sub_version}\_amd64.deb and libgymidgard\_{version}\_amd64.deb should be available in the directory :
 - builder_image/{version}/bin/
 
 **INFO** The compilation is based on docker images, that are cached.
