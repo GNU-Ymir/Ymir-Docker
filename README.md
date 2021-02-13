@@ -12,7 +12,7 @@ The version of ymir that is build is the last available on the repository [GNU-Y
 ## Compile a version :
 
 First of all, you will need [docker](https://docs.docker.com/get-docker/)
-
+Then launch the following commands : 
 ```bash
 cd builder_image/{version}/{arch}
 ./config.sh
@@ -25,12 +25,18 @@ This could take a while (several hours for config.sh)
 
 If everything worked as expected, the two files : gyc-{version}\_{sub_version}\_{arch}.deb and libgymidgard\_{version}\_{arch}.deb should be available in the directory :
 
-- builder_image/{version}/bin/
+- builder_image/{version}/{arch}/bin/
 
 **INFO** The compilation is based on docker images, that are cached.
 If you don't remove the images, the cached images will be used and the
 compilation will be a lot faster than the first time, and the
 config.sh script does not need to be executed each time
+
+Then to update and compile a new release :  
+```bash
+cd builder_image/{version}/{arch}
+./build.sh
+```
 
 ## Run the tests
 
@@ -42,3 +48,22 @@ cd builder_image/{version}/{arch}
 ```
 
 **WARNING** you may have permission problem if docker is not correctly configured->  [Configure Docker](https://docs.docker.com/engine/install/linux-postinstall/)
+
+## Create a docker container with a gyc installed in it
+
+In each release directory, there is a Dockerfile that create a docker image usable to run gyc without installing anything
+To create this image : 
+```bash
+cd builder_image/{version}/{arch}/
+./create_docker.sh
+```
+
+Then you should have in your docker inventory the image : gnuymir/{version}-{arch}:latest
+You can check the image : 
+```bash
+docker run -t -v $(pwd):/tmp -w /tmp gnuymir/{version}-{arch} --version 
+```
+
+
+
+
