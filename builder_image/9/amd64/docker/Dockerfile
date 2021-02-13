@@ -15,16 +15,15 @@ RUN rm -rf /var/lib/apt/lists/*
 
 RUN useradd -ms /bin/bash ymir && echo "ymir:ymir" | chpasswd && adduser ymir sudo
 
+WORKDIR /home/ymir/
 ADD gyc-9_9.3.0_amd64.deb /home/ymir/gyc-9.deb
 ADD libgmidgard_9.3.0_amd64.deb /home/ymir/libgmidgard.deb
 
-WORKDIR /home/ymir/
 RUN dpkg -i gyc-9.deb
- RUN dpkg -i libgmidgard.deb
+RUN dpkg -i libgmidgard.deb
 
-RUN git clone https://github.com/GNU-Ymir/Ymir-Test.git test
-WORKDIR /home/ymir/test
+RUN rm gyc-9.deb
+RUN rm libgmidgard.deb
 
-RUN python3 run-test.py --playbook playbook.yml
-
-CMD ["/bin/bash"]
+WORKDIR /root/
+ENTRYPOINT ["gyc"]
