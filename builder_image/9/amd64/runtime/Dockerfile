@@ -5,7 +5,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update -y
 
 RUN apt-get install -y --no-install-recommends sudo pkg-config git build-essential software-properties-common aspcud unzip curl wget
-RUN apt-get install -y --no-install-recommends gcc-9 g++-9 flex autoconf automake libtool cmake emacs
+RUN apt-get install -y --no-install-recommends gcc-9 g++-9 flex autoconf automake libtool cmake emacs patchelf
 RUN apt-get install -y --no-install-recommends libgc-dev libbfd-dev
 
 RUN sudo apt-get install -y ruby ruby-dev rubygems build-essential
@@ -27,6 +27,7 @@ RUN mkdir .build
 WORKDIR /home/ymir/runtime/runtime/.build
 RUN cmake ..
 RUN make -j4
+RUN patchelf --add-needed libbfd.so libgyruntime.so
 RUN make install DESTDIR=/tmp/midgard
 
 WORKDIR /home/ymir/runtime/midgard
@@ -46,6 +47,8 @@ RUN mkdir /home/ymir/bin
 WORKDIR /home/ymir/bin
 RUN fpm -s dir -t deb -n libgmidgard-9 -v 9.3.0 -C /tmp/midgard/ \
 	-p libgmidgard_VERSION_ARCH.deb \
+	-d "libgc-dev >= 1.3.2" \
+        -d "libbfd-dev" \
 	-d "libc6 >= 2.31" \
 	-d "gcc-9-base >= 9" \
 	-d "libgcc1" \
